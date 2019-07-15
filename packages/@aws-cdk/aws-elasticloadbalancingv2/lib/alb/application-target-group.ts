@@ -1,9 +1,11 @@
 import cloudwatch = require('@aws-cdk/aws-cloudwatch');
 import ec2 = require('@aws-cdk/aws-ec2');
 import { Construct, Duration, IConstruct } from '@aws-cdk/core';
-import { BaseTargetGroupProps, ITargetGroup, loadBalancerNameFromListenerArn, LoadBalancerTargetProps,
-         TargetGroupBase, TargetGroupImportProps } from '../shared/base-target-group';
-import { ApplicationProtocol } from '../shared/enums';
+import {
+  BaseTargetGroupProps, ITargetGroup, loadBalancerNameFromListenerArn, LoadBalancerTargetProps,
+  TargetGroupBase, TargetGroupImportProps
+} from '../shared/base-target-group';
+import { ApplicationProtocol, TargetType } from '../shared/enums';
 import { ImportedTargetGroupBase } from '../shared/imported';
 import { determineProtocolAndPort } from '../shared/util';
 import { IApplicationListener } from './application-listener';
@@ -75,10 +77,18 @@ export class ApplicationTargetGroup extends TargetGroupBase implements IApplicat
   private readonly connectableMembers: ConnectableMember[];
   private readonly listeners: IApplicationListener[];
 
-  constructor(scope: Construct, id: string, props: ApplicationTargetGroupProps) {
-    const [protocol, port] = determineProtocolAndPort(props.protocol, props.port);
+  constructor(scope: Construct, id: string, props?: ApplicationTargetGroupProps) {
 
-    super(scope, id, props, {
+    const _props = props || {};
+
+    let protocol;
+    let port;
+
+    if (_props.targetType !== TargetType.Lambda) {
+      [protocol, port] = determineProtocolAndPort(_props.protocol, _props.port);
+    }
+
+    super(scope, id, _props, {
       protocol,
       port,
     });
@@ -86,14 +96,14 @@ export class ApplicationTargetGroup extends TargetGroupBase implements IApplicat
     this.connectableMembers = [];
     this.listeners = [];
 
-    if (props.slowStart !== undefined) {
-      this.setAttribute('slow_start.duration_seconds', props.slowStart.toSeconds().toString());
+    if (_props.slowStart !== undefined) {
+      this.setAttribute('slow_start.duration_seconds', _props.slowStart.toSeconds().toString());
     }
-    if (props.stickinessCookieDuration !== undefined) {
-      this.enableCookieStickiness(props.stickinessCookieDuration);
+    if (_props.stickinessCookieDuration !== undefined) {
+      this.enableCookieStickiness(_props.stickinessCookieDuration);
     }
 
-    this.addTarget(...(props.targets || []));
+    this.addTarget(...(_props.targets || []));
   }
 
   /**
