@@ -31,7 +31,7 @@
     "@types/archiver": "^3.0.0",
     "@types/glob": "^7.1.1",
     "@types/jest": "^24.0.25",
-    "@types/node": "^10.17.13",
+    "@types/node": "^13.9.2",
     "@types/mock-fs": "^4.10.0",
     "@types/yargs": "^15.0.0",
     "cdk-build-tools": "1.25.0",
