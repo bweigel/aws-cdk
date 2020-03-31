@@ -156,7 +156,7 @@
     "@aws-cdk/custom-resources": "1.25.0",
     "@aws-cdk/cx-api": "1.25.0",
     "@aws-cdk/region-info": "1.25.0",
-    "@types/node": "^10.17.15",
+    "@types/node": "^13.9.8",
     "@aws-cdk/aws-fms": "1.25.0",
     "@aws-cdk/cdk-assets-schema": "1.25.0"
   },
