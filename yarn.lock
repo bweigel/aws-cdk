@@ -2067,10 +2067,10 @@
   dependencies:
     "@types/glob" "*"
 
-"@types/aws-lambda@^8.10.39":
-  version "8.10.46"
-  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.46.tgz#3246348cdc15921bd065966109fc1c6f6d5cfd96"
-  integrity sha512-88E4Hlypo3AE40wslm7N4n09lCIJwgYJm5wsaA3/Vib1xqjC/ANePTaPRpPdj9NzBSpw7Tgon58qGMYEArx4oA==
+"@types/aws-lambda@^8.10.52":
+  version "8.10.52"
+  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.52.tgz#b019cc7e1819eaf86a9166383951d5ec4aa2d32e"
+  integrity sha512-Gm8hzCpdDj4/wlS8HA6nPPM5nHTF3Wjv/d6n7J2fdcJF4GtAIMbG7Wm8xKXY02K/Yqo8fzGw7PfbbkP9IeVlCg==
 
 "@types/babel__core@^7.1.0":
   version "7.1.6"
