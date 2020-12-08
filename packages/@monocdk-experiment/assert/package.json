@@ -33,7 +33,7 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/jest": "^26.0.4",
+    "@types/jest": "^26.0.17",
     "@types/node": "^10.17.27",
     "cdk-build-tools": "0.0.0",
     "jest": "^25.5.4",
