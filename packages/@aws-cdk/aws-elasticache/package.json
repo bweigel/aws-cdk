@@ -61,7 +61,10 @@
   "awslint": {
     "exclude": [
       "props-physical-name:@aws-cdk/aws-elasticache.ParameterGroupProps",
-      "docs-public-apis:@aws-cdk/aws-elasticache.CacheParameterGroupFamily"
+      "docs-public-apis:@aws-cdk/aws-elasticache.CacheParameterGroupFamily",
+      "docs-public-apis:@aws-cdk/aws-elasticache.EngineVersion.REDIS_5_0_5",
+      "docs-public-apis:@aws-cdk/aws-elasticache.EngineVersion.REDIS_5_0_6",
+      "docs-public-apis:@aws-cdk/aws-elasticache.EngineVersion.REDIS_6_X"
     ]
   },
   "keywords": [

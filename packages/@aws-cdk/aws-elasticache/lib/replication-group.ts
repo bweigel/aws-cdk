@@ -1,14 +1,12 @@
 import * as ec2 from '@aws-cdk/aws-ec2';
 import * as kms from '@aws-cdk/aws-kms';
 import { IResource, RemovalPolicy, Resource, Token } from '@aws-cdk/core';
+import { Construct } from 'constructs';
 import { CfnReplicationGroup } from './elasticache.generated';
 import { Endpoint } from './endpoint';
 import { IParameterGroup } from './parameter-group';
 import { ISubnetGroup, SubnetGroup } from './subnet-group';
 
-// keep this import separate from other imports to reduce chance for merge conflicts with v2-main
-// eslint-disable-next-line no-duplicate-imports, import/order
-import { Construct } from '@aws-cdk/core';
 
 /**
  * Create a Redshift Cluster with a given number of nodes.
@@ -113,9 +111,12 @@ abstract class ReplicationGroupBase extends Resource implements IReplicationGrou
 
 /**
  * The version number of the cache engine to be used for the clusters in this replication group.
+ * see `aws elasticache describe-cache-engine-versions` for available engine versions
  */
 export enum EngineVersion {
-  REDIS_6_0 = '6.0',
+  REDIS_5_0_5 = '5.0.5',
+  REDIS_5_0_6 = '5.0.6',
+  REDIS_6_X = '6.x',
 }
 
 /**
@@ -127,7 +128,7 @@ export interface ReplicationGroupProps {
    *
    * @default - A name is automatically generated.
    */
-  readonly replicationGroupId?: string;
+  readonly replicationGroupName?: string;
 
   /**
    * A description for the replication group
@@ -163,7 +164,7 @@ export interface ReplicationGroupProps {
    * Number of clusters in this replication group.
    * Not used, if there is more than one Node Group (shard) - use {@link ReplicationGroupProps.replicasPerNodeGroup} instead
    *
-   * @default undefined
+   * @default undefined - not used
    */
   readonly numberOfCacheClusters?: number;
 
@@ -393,7 +394,7 @@ export class ReplicationGroup extends ReplicationGroupBase {
       // Basic
       autoMinorVersionUpgrade: undefined, // currently disabled, see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-autominorversionupgrade
       replicationGroupDescription: props.description || 'CDK generated replication group',
-      replicationGroupId: props.replicationGroupId,
+      replicationGroupId: props.replicationGroupName,
       securityGroupIds: vpcConfiguration.securityGroups.map((sg) => sg.securityGroupId),
       cacheSubnetGroupName: vpcConfiguration.subnetGroup.subnetGroupName,
       port: props.port,
